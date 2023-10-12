@@ -4,6 +4,7 @@ provider "aws" {
   region = "us-east-1"
 }
 
+
 # VPC 1
 # You can add more resources specific to each VPC here, such as subnets, security groups, and route tables.
 
@@ -457,6 +458,15 @@ resource "null_resource" "null-res-03" {
   depends_on = [aws_instance.ec2-web3]
 }
 
+terraform {
+  backend "s3" {
+    bucket = "my-tf-test-bucket-open5gs-automation"
+    dynamodb_table = "dynamodb-state-locking"
+    key    = "global/mystate/terraform.tfstate"
+    region = "us-east-1"
+    encrypt = true
+  }
+}
 
 
 
